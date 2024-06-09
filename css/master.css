@@ -67,17 +67,6 @@ body {
 }
 
 
-@media (min-width: 768px) and (max-width: 991px) {
-    .container {
-        columns: 2;
-    }
-}
-
-@media (max-width: 767px) {
-    .container {
-        columns: 1;
-    }
-}
 .lightBox{
     position: fixed;
     top: 0;
@@ -106,6 +95,20 @@ body {
     border-radius: 4px;
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        columns: 2;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        columns: 1;
+    }
+    .lightBoxItem{
+        width: 98%;
+    }
+}
 .next, .prev,.close {
     margin: 10px;
     border: 2px solid #eee;
