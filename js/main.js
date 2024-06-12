@@ -1,29 +1,44 @@
 let items = Array.from(document.querySelectorAll(".item img"));
+let search = Array.from(document.querySelectorAll(".search"));
+
 let lightBox = document.querySelector(".lightBox");
 let lightBoxItem = document.querySelector(".lightBoxItem");
 let closeBtn = document.querySelector(".close");
 let nextBtn = document.querySelector(".next");
 let prevBtn = document.querySelector(".prev");
 
-let currentIndex ;
+let currentIndex;
+let autoSlideInterval;
 
-for(let i = 0; i<items.length; i++){
-    items[i].addEventListener("click",function(e){
+function openLightBox(index) {
+    lightBox.classList.add("active");
+    let showSrc = items[index].getAttribute("src");
+    lightBoxItem.style.backgroundImage = `url(${showSrc})`;
+    currentIndex = index;
+    lightBoxItem.classList.add("active");
+    startAutoSlide();
+}
 
-        lightBox.classList.add("active");
-        let showSrc = e.target.getAttribute("src");
-
-        lightBoxItem.style.backgroundImage = `url(${showSrc})`
-
-        currentIndex = items.indexOf(e.target);
+for (let i = 0; i < items.length; i++) {
+    items[i].addEventListener("click", function () {
+        openLightBox(i);
     });
 }
-function close() {
-    lightBox.classList.remove("active");
+for (let i = 0; i < search.length; i++) {
+    search[i].addEventListener("click", function () {
+        openLightBox(i);
+    });
 }
-closeBtn.addEventListener("click",function () {
-    close()
-})
+
+function closeLightBox() {
+    lightBox.classList.remove("active");
+    clearInterval(autoSlideInterval);
+}
+
+closeBtn.addEventListener("click", function () {
+    closeLightBox();
+});
+
 function next() {
     currentIndex++;
     if (currentIndex >= items.length) {
@@ -31,9 +46,10 @@ function next() {
     }
     let imgSrc = items[currentIndex].getAttribute("src");
     lightBoxItem.style.backgroundImage = `url(${imgSrc})`;
- }
-nextBtn.addEventListener("click", function() {
-next()
+}
+
+nextBtn.addEventListener("click", function () {
+    next();
 });
 
 function prev() {
@@ -44,17 +60,21 @@ function prev() {
     let imgSrc = items[currentIndex].getAttribute("src");
     lightBoxItem.style.backgroundImage = `url(${imgSrc})`;
 }
-prevBtn.addEventListener("click", function() {
-    prev() 
+
+prevBtn.addEventListener("click", function () {
+    prev();
 });
 
-document.addEventListener("keydown",function(e){
-    if (e.key=="ArrowRight") {
-        next()
-    }else if(e.key == "ArrowLeft"){
-        prev()
-    }else if(e.key == "Escape"){
-        close()
+document.addEventListener("keydown", function (e) {
+    if (e.key == "ArrowRight") {
+        next();
+    } else if (e.key == "ArrowLeft") {
+        prev();
+    } else if (e.key == "Escape") {
+        closeLightBox();
     }
+});
 
-})
+function startAutoSlide() {
+    autoSlideInterval = setInterval(next, 3000); 
+}

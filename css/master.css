@@ -7,8 +7,29 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    animation: expand 2s ease forwards;
+    transition: 2s;
 }
-
+@keyframes expand {
+    0% {
+        height: 0;
+        width: 0;
+        background-color: #000;
+        opacity: 0;
+    }
+    50% {
+        height: 50%;
+        width: 50%;
+        opacity: 0.5;
+        background-color: rgb(66, 66, 66);
+    }
+    100% {
+        height: 100%;
+        background-color: #fefefe;
+        width: 100%;
+        opacity: 1;
+    }
+}
 .container {
     width: 80%;
     margin: 0 auto;
@@ -60,6 +81,7 @@ body {
     font-size: 1.5em;
     text-align: center;
     border-radius: 8px;
+    flex-direction: column-reverse;
 }
 
 .item:hover .overlay {
@@ -93,8 +115,12 @@ body {
     align-items: center;
     justify-content: space-between;
     border-radius: 4px;
+    opacity: 0;
+    transition: 0.5s;
 }
-
+.lightBoxItem.active{
+    opacity: 1;
+}
 @media (min-width: 768px) and (max-width: 991px) {
     .container {
         columns: 2;
@@ -120,6 +146,7 @@ body {
     color: #fff;
     align-items: center;
     justify-content: center;
+    transition: 0.5s;
 }
 .close {
     position: absolute;
@@ -127,6 +154,24 @@ body {
     top: 0;
     color: red;
 }
+
+
+.next:hover, .prev:hover,.close:hover {
+    transform: rotate(360deg)scale(1.1);
+    background: linear-gradient(45deg, #ffffff00, #07070700 ) ;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 1px 1px 0 #ff6e6100, 2px 2px 0 #ff996600;
+    border: 2px solid rgb(0, 0, 0);
+    -webkit-text-stroke: 2px #000; 
+}
+.close:hover{
+    -webkit-text-stroke: 2px #e7e7e7; 
+    background: linear-gradient(45deg, #af0d0d, #410606 ) ;
+    transform: rotate(180deg)scale(1.1);
+}
+
 i{
     cursor: pointer;
     font-size: 26px;
@@ -134,4 +179,34 @@ i{
 p {
     padding: 5px;
     font-size: 23px;
+}
+
+.search{
+    margin-top: 12px;
+    cursor: pointer;
+    transition: 0.5s;
+    position: relative;
+    font-size: 22px;
+}
+.search:hover{
+    color: rgba(255, 255, 255, 0.8);
+    transform: rotate(-15deg);
+}
+.search::after {
+    content: "Open";
+    position: absolute;
+    left: -50%;
+    top: 100%;
+    margin-top: 10px;
+    font-size: 17px;
+    background: #000000cf;
+    padding: 8px;
+    border-radius: 6px;
+    opacity: 0;
+    transition: 0.8s;
+}
+
+.search:hover::after {
+    opacity: 1; 
+     transform: rotate(25deg);
 }
