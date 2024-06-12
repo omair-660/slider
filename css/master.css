@@ -8,7 +8,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     animation: expand 2s ease forwards;
-    transition: 2s;
+    transition: 1s;
 }
 @keyframes expand {
     0% {
@@ -104,7 +104,7 @@ body {
     display: flex;
 }
 .lightBoxItem {
-    width: 50%;
+    width: 80%;
     height: 70vh;
     background-image: url("../image/4.jpg");
     background-size: cover;
@@ -147,6 +147,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: 0.5s;
+    position: relative;
 }
 .close {
     position: absolute;
@@ -192,7 +193,10 @@ p {
     color: rgba(255, 255, 255, 0.8);
     transform: rotate(-15deg);
 }
-.search::after {
+.search::after,
+.next::after,
+.prev::after,
+.close::after {
     content: "Open";
     position: absolute;
     left: -50%;
@@ -205,8 +209,22 @@ p {
     opacity: 0;
     transition: 0.8s;
 }
-
-.search:hover::after {
+.close::after{
+    content: "Close";
+}
+.next::after{
+    content: "Next";
+    background: aliceblue;
+    letter-spacing: 3px;}
+.prev::after{
+    content: "Prevuase";
+    background: aliceblue;
+    letter-spacing: 3px;
+}
+.search:hover::after,
+.next:hover::after,
+.prev:hover::after,
+.close:hover::after {
     opacity: 1; 
      transform: rotate(25deg);
 }
